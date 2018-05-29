@@ -1,16 +1,35 @@
-theme: jekyll-theme-cayman
+# theme: jekyll-theme-cayman
 
 # Site settings
-title: wml的博客呀
-SEOTitle: wuml的博客 | my Blog
-header-img: img/home-bg.jpg
+title: Wml Blog
+SEOTitle: 吴美莲的博客 | Wml Blog
+header-img: img/home-bg.png
 email: 1054527951@qq.com
-description: "wumeilian | 未知的世界才值得期待"
-keyword: "wumeilian, wml"
-url: "https://wumeilian.github.io/"              # your host, for absolute URL
+description: "前端开发 | 未知的世界才值得期待 | 吴美莲，Web & Front-end Engineer | wumeilian的个人博客呀"
+keyword: "wumeilian, wml, wuml, 前端, Wml Blog, 博客，Web, Css, Javascript"
+url: "https://meilianwu.com/"              # your host, for absolute URL
 baseurl: ""                             # for example, '/blog' if your blog hosted on 'host/blog'
 
 
 # avatar and Favicon
 # avatar: http://7u2ho6.com1.z0.glb.clouddn.com/site-avatar.png
 favicon: favicon.ico
+
+# Featured Tags
+featured-tags: true                     # whether or not using Feature-Tags
+featured-condition-size: 1              # A tag will be featured if the size of it is more than this condition value
+
+
+# SNS settings
+RSS: false
+weibo_username:     AnnualWu
+zhihu_username:     wml
+github_username:    wumeilian
+# twitter_username:   wml
+#facebook_username:  huxpro
+
+
+# Build settings
+paginate: 5
+
+gems: [jekyll-paginate]
