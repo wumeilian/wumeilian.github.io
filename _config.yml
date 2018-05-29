@@ -33,3 +33,9 @@ github_username:    wumeilian
 paginate: 5
 
 gems: [jekyll-paginate]
+
+# Friends
+friends: [{
+  title: "wfm's github",
+  href: "https://github.com/wfm19970"
+}]
