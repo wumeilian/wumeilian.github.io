@@ -1,0 +1,22 @@
+{
+  "name": "wumeilian.github.io",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wumeilian/wumeilian.github.io.git"
+  },
+  "keywords": [
+    "blog"
+  ],
+  "author": "wml",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/wumeilian/wumeilian.github.io/issues"
+  },
+  "homepage": "https://github.com/wumeilian/wumeilian.github.io#readme"
+}
