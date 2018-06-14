@@ -5,6 +5,7 @@ subtitle:   ""
 author:     "wml"
 header-img: "img/blog-build-1.png"
 header-mask:  0.5
+catalog: true
 tags:
     - blog
 ---
@@ -71,7 +72,7 @@ Jekyll要求文章命名格式遵守`年-月-日-标题.MARKUP`, 例如
 Github Pages 可以更换自己的域名，关于域名购买以及解析，我是在阿里云上购买的域名，网上也很多相关教程，这里不再赘述；如果想换成自己的域名也很简单，只需要在根目录下添加`CNAME`文件，并且添加自己的域名即可。
 ![域名](/img/blog-build-13.png)
 
-### 本地调试
+### 6、本地调试
 
 至此，博客基本是搭建好了。但是每次更新都要提交到远程仓库里才能看到结果，对于时常需要更新博客的同学来说可以说很不方便了；所幸，jekyll实现了本地调试。虽然官方不建议在Windows平台上安装Jekyll，emmmm...毕竟Windows用户还是很多的。。下面介绍在Windows下安装jekyll(os和Unix/Linux 用户安装比较简单，自行查阅吧。。。);
 
