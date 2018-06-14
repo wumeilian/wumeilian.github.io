@@ -21,7 +21,8 @@ tags:
 
 修改仓库名，仓库命名格式必须按照 `<username>.github.io`格式，将`username`替换成你自己的github账户名；![修改仓库名称](/img/blog-build-4.png)
 
-修改完成后，往下拉到Github Pages的位置就能看到修改过后的地址，![pages](/img/blog-build-5.png)
+修改完成后，往下拉到Github Pages的位置就能看到修改过后的地址(这里设置了自己的域名，未设置时地址`http://wumeilian.github.io`)
+![pages](/img/blog-build-5.png)
 
 访问该地址就可以看到页面了，如果出现页面打不开，请检查仓库名是否和用户名一致。
 ![blog](/img/blog-build-6.png)
@@ -66,3 +67,30 @@ Jekyll要求文章命名格式遵守`年-月-日-标题.MARKUP`, 例如
 ![分页](/img/blog-build-12.png)
 
 ### 5、添加域名
+
+Github Pages 可以更换自己的域名，关于域名购买以及解析，我是在阿里云上购买的域名，网上也很多相关教程，这里不再赘述；如果想换成自己的域名也很简单，只需要在根目录下添加`CNAME`文件，并且添加自己的域名即可。
+![域名](/img/blog-build-13.png)
+
+### 本地调试
+
+至此，博客基本是搭建好了。但是每次更新都要提交到远程仓库里才能看到结果，对于时常需要更新博客的同学来说可以说很不方便了；所幸，jekyll实现了本地调试。虽然官方不建议在Windows平台上安装Jekyll，emmmm...毕竟Windows用户还是很多的。。下面介绍在Windows下安装jekyll(os和Unix/Linux 用户安装比较简单，自行查阅吧。。。);
+
+由于jekyll是用ruby语言实现的静态网页生成工具，所以要搭建jekyll环境就需要先配置好ruby环境；
+
+* 下载[ruby](https://www.ruby-lang.org/zh_cn/downloads/)，使用RubyInstaller安装，wins下需要添加DevKit，所以选择下面的版本；
+
+![ruby](/img/blog-build-14.png)
+
+* 下载完以后按引导安装，这里需要勾选安装MSYS2，用于shell命令开发环境下的windows软件；
+
+![ruby](/img/blog-build-15.png)
+
+* 安装完ruby环境后，`gem install jekyll` 安装jekyll，查看是否安装成功
+
+![ruby](/img/blog-build-16.png)
+
+* 启动jekyll，在命令行内输入 `jekyll serve --watch` 服务，默认端口号4000，就可以通过`http://localhost:4000`访问本地博客啦。
+
+## 写在最后
+
+关于github博客的搭建，由于各文件是后续一点点加上去的，所以还存在着许多不足，比如，对于图片的压缩，以及文件的自动压缩，还有博客评论等，都还没有添加，前期简单记录是足够了，还需要后面慢慢润色，最后，如果本文有帮助到你的话，进入[我的仓库](https://github.com/wumeilian/wumeilian.github.io)帮忙点个star吧~比熏熏٩(๑❛ᴗ❛๑)۶。
