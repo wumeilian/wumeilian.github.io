@@ -40,6 +40,17 @@ plugins: [jekyll-paginate]
 # gems: [jekyll-paginate]
 
 
+# Gitalk
+gitalk:
+  enable: true    #是否开启Gitalk评论
+  clientID: a84c2a57837302767371                            #生成的clientID
+  clientSecret: 847046720bec629fbd3580d8f3cc617ab9d3a27a    #生成的clientSecret
+  repo: wumeilian.github.io    #仓库名称
+  owner: wumeilian    #github用户名
+  admin: wumeilian
+  # distractionFreeMode: true #是否启用类似FB的阴影遮罩
+
+
 # Friends
 friends: [{
   title: "wfm's github",
