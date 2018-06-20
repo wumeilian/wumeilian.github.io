@@ -92,6 +92,10 @@ Github Pages 可以更换自己的域名，关于域名购买以及解析，我�
 
 * 启动jekyll，在命令行内输入 `jekyll serve --watch` 服务，默认端口号4000，就可以通过`http://localhost:4000`访问本地博客啦。
 
+### 7、添加gitalk评论插件
+
+这里使用的是Gitalk评论插件，基于github issue和preact开发的插件，网上也有很多使用Disqus评论插件，不过由于国内网络支持问题，Disqus可能加载不出来。关于添加gitalk插件的方法很简单，具体可以参看[添加评论](http://qiubaiying.top/2017/12/19/%E4%B8%BA%E5%8D%9A%E5%AE%A2%E6%B7%BB%E5%8A%A0-Gitalk-%E8%AF%84%E8%AE%BA%E6%8F%92%E4%BB%B6/)。 需要注意的是添加完成后需要push到远程仓库中，首次加载需要在仓库中创建对应issue所以速度会慢一些，初始化后需要授权，按提示点击授权即可。
+
 ## 写在最后
 
 关于github博客的搭建，由于各文件是后续一点点加上去的，所以还存在着许多不足，比如，对于图片的压缩，以及文件的自动压缩，还有博客评论等，都还没有添加，前期简单记录是足够了，还需要后面慢慢润色，最后，如果本文有帮助到你的话，进入[我的仓库](https://github.com/wumeilian/wumeilian.github.io)帮忙点个star吧~比熏熏٩(๑❛ᴗ❛๑)۶。
