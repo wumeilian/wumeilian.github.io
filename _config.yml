@@ -18,8 +18,8 @@ favicon: favicon.ico
 
 # Sidebar settings
 sidebar: true                           # whether or not using Sidebar.
-sidebar-about-description: "未知的我们向着未知的世界出发"
-# sidebar-avatar: /img/avatar.jpg      # use absolute URL, seeing it's used in both `/` and `/about/`
+sidebar-about-description: "Web Developer <br/> 未知的我们向着未知的世界出发"
+sidebar-avatar: /img/avatar.png      # use absolute URL, seeing it's used in both `/` and `/about/`
 
 
 # Featured Tags
