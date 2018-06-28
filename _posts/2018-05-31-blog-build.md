@@ -94,7 +94,36 @@ Github Pages 可以更换自己的域名，关于域名购买以及解析，我�
 
 ### 7、添加gitalk评论插件
 
-这里使用的是Gitalk评论插件，基于github issue和preact开发的插件，网上也有很多使用Disqus评论插件，不过由于国内网络支持问题，Disqus可能加载不出来。关于添加gitalk插件的方法很简单，具体可以参看[添加评论](http://qiubaiying.top/2017/12/19/%E4%B8%BA%E5%8D%9A%E5%AE%A2%E6%B7%BB%E5%8A%A0-Gitalk-%E8%AF%84%E8%AE%BA%E6%8F%92%E4%BB%B6/)。 需要注意的是添加完成后需要push到远程仓库中，首次加载需要在仓库中创建对应issue所以速度会慢一些，初始化后需要授权，按提示点击授权即可。
+![gitalk](/img/blog-build-17.png)
+
+这里使用的是Gitalk评论插件，基于github issue和preact开发的插件，网上也有很多使用Disqus评论插件，不过由于国内网络支持问题，Disqus可能加载不出来。关于添加gitalk插件的方法很简单，将下面这段代码插入`_layouts/_post.html`中
+
+```html
+<!-- Gitalk 评论 start  -->
+<!-- Link Gitalk 的支持文件  -->
+<link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk@latest/dist/gitalk.min.js"></script> 
+<div id="gitalk-container"></div>
+<script type="text/javascript">
+    var gitalk = new Gitalk({
+    // gitalk的主要参数
+    clientID: `Github Application clientID`,
+    clientSecret: `Github Application clientSecret`,
+    repo: `存储你评论 issue 的 Github 仓库名`,
+    owner: 'Github 用户名',
+    admin: ['Github 用户名'],
+    id: '页面的唯一标识，gitalk会根据这个标识自动创建的issue的标签',
+    });
+    gitalk.render('gitalk-container');
+</script>
+<!-- Gitalk end -->
+```
+
+创建一个[github application](https://github.com/settings/applications/new)；
+
+![blog](/img/blog-build-18.png)
+
+创建好产生的Client ID 和 Client Secret 填入你的我们 Gitalk 参数中，添加完成后需要push到远程仓库中，每篇文章会产生一个对应的issue。需要注意的是，首次加载需要在仓库中创建对应issue所以速度会慢一些，初始化后需要授权，按提示点击授权即可。
 
 ## 写在最后
 
