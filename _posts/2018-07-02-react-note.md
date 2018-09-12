@@ -1,6 +1,6 @@
 ---
 layout:     post
-title:      "React的那些事儿"
+title:      "【学习笔记】 React的那些事儿"
 subtitle:   ""
 author:     "wml"
 header-img: "img/home-bg.jpg"
