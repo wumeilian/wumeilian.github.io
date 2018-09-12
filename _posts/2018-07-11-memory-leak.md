@@ -1,6 +1,6 @@
 ---
 layout:     post
-title:      "浅谈JavaScript内存泄露"
+title:      "【学习积累】浅谈JavaScript内存泄露"
 subtitle:   ""
 author:     "wml"
 header-img: "img/home-bg.jpg"

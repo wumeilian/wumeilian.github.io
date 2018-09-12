@@ -1,6 +1,6 @@
 ---
 layout:     post
-title:      "git rebase"
+title:      "【学习积累】git rebase"
 subtitle:   ""
 author:     "wml"
 header-img: "img/blog-build-1.png"
