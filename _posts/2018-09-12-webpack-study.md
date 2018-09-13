@@ -27,90 +27,6 @@ module.exports = {
 };
 ```
 
-#### 输出(output)
-
-指定输出，默认值`./dist`
-
-```javascript
-const path = require('path');
-
-module.exports = {
-    entry: './path/file.js',
-    output: {
-        path: path.resolve(__dirname, 'dist'),
-        filename: 'my_webpack.bundle.js'
-    }
-}
-```
-
-#### loader
-
-处理非JavaScript文件（webpack自身只理解JavaScript）。loader能够`import`导入任何类型的模块（eg: .css文件）。
-
-loader有两个目标：
-1. `test`属性，用于标识出应该被对应的loader进行转换的某个或某些文件。
-
-2. `use`属性，表示进行转换时，应该使用哪个loader。
-
-```javascript
-const path = require('path');
-
-const config = {
-    output: {
-        filename: 'my_webpack.bundle.js'
-    },
-    module: {
-        rules: [
-            {
-                test: /\.txt$/,
-                use: 'raw-loader'
-            }
-        ]
-    }
-};
-
-module.exports = config;
-```
-
-> 在webpack配置中定义loader时，要定义在module.rules中而不是rules。
-
-#### 插件（plugins）
-
-loader被用于转换某些类型的模块，而插件则用于执行从打包优化和压缩，一直到重新定义环境中的变量等任务。使用一个插件，需要`require()`它，然后添加到`plugins`数组中。可以在一个配置文件中因为不同目的而多次使用同一个插件，这时需要通过使用 new 操作符来创建它的一个实例。
-
-```javascript
-const HtmlWebpackPlugin = require('html-webpack-plugin'); // 通过npm安装
-const webpack = require('webpack'); // 用于访问内置插件
-
-const config = {
-    module: {
-        rules: [
-            {test: /\.txt$/, use: 'raw-loader'}
-        ]
-    },
-    pulgin: [
-        new webpack.optimize.UglifyJsPlugin(),
-        new HtmlWebpackPlugin({
-            template: './src/index.html'
-        })
-    ]
-};
-
-module.exports = config;
-```
-
-#### 模式
-
-通过选择`development`或`production`中的一个来设置`mode`参数，启用相应模式下的webpack内置优化。
-
-```javascript
-module.export = {
-    mode: 'production'
-};
-```
-
-### 入口（entry）
-
 单个入口
 
 > 用法：entry: string\|Array&lt;string&gt;
@@ -154,7 +70,21 @@ const config = {
 
 使用`CommonsChunkPlugin`为每个页面间的应用程序共享代码创建bundle，由于入口点增多，多页应用能够复用入口起点间的大量代码和模块。
 
-### 输出（output）
+#### 输出(output)
+
+指定输出，默认值`./dist`
+
+```javascript
+const path = require('path');
+
+module.exports = {
+    entry: './path/file.js',
+    output: {
+        path: path.resolve(__dirname, 'dist'),
+        filename: 'my_webpack.bundle.js'
+    }
+}
+```
 
 配置output选项可以控制webpack如何向硬盘写入便以文件。即使存在多个入口起点，但只能指定一个output配置。
 
@@ -203,4 +133,97 @@ output: {
 
 ```javascript
 __webpack_public_path__ = myRuntimePublicPath
+```
+
+#### loader
+
+处理非JavaScript文件（webpack自身只理解JavaScript）对源码进行转换。loader能够`import`导入任何类型的模块（eg: .css文件）。
+
+loader有两个目标：
+
+1. `test`属性，用于标识出应该被对应的loader进行转换的某个或某些文件。
+
+2. `use`属性，表示进行转换时，应该使用哪个loader。
+
+```javascript
+const path = require('path');
+
+const config = {
+    output: {
+        filename: 'my_webpack.bundle.js'
+    },
+    module: {
+        rules: [
+            {
+                test: /\.txt$/,
+                use: 'raw-loader'
+            }
+        ]
+    }
+};
+
+module.exports = config;
+```
+
+> 在webpack配置中定义loader时，要定义在module.rules中而不是rules。
+
+loader使用方式：
+
+* 配置，在webpack.config.js文件中指定loader
+
+```javascript
+module: {
+    rules: [
+        {loader: 'style-loader},
+        {
+          loader: 'css-loader',
+          options: {
+              modules: true
+          }
+        }
+    ]
+}
+```
+
+* 内联，在import语句中指定loader，使用!将资源中的loader分开。
+
+`import Styles from 'style-loader!css-loader?modules!./styles.css'`
+
+* CLI
+
+`webpack --module-bind jade-loader --module-bind 'css=style-loader!css-loader'`
+
+#### 插件（plugins）
+
+loader被用于转换某些类型的模块，而插件则用于执行从打包优化和压缩，一直到重新定义环境中的变量等任务。使用一个插件，需要`require()`它，然后添加到`plugins`数组中。可以在一个配置文件中因为不同目的而多次使用同一个插件，这时需要通过使用 new 操作符来创建它的一个实例。
+
+```javascript
+const HtmlWebpackPlugin = require('html-webpack-plugin'); // 通过npm安装
+const webpack = require('webpack'); // 用于访问内置插件
+
+const config = {
+    module: {
+        rules: [
+            {test: /\.txt$/, use: 'raw-loader'}
+        ]
+    },
+    pulgin: [
+        new webpack.optimize.UglifyJsPlugin(),
+        new HtmlWebpackPlugin({
+            template: './src/index.html'
+        })
+    ]
+};
+
+module.exports = config;
+```
+
+#### 模式
+
+通过选择`development`或`production`中的一个来设置`mode`参数，启用相应模式下的webpack内置优化。相应将`progress.env.NODE_ENV`的值设置为`development`或`production`。
+
+```javascript
+module.export = {
+    mode: 'production'
+};
 ```
