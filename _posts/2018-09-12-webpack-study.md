@@ -169,12 +169,12 @@ module.exports = config;
 
 loader使用方式：
 
-* 配置，在webpack.config.js文件中指定loader
+* 配置，在webpack.config.js文件中指定loader，module.rules 允许你在 webpack 配置中指定多个 loader
 
 ```javascript
 module: {
     rules: [
-        {loader: 'style-loader},
+        {loader: 'style-loader'},
         {
           loader: 'css-loader',
           options: {
