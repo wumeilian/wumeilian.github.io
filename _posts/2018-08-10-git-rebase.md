@@ -3,7 +3,7 @@ layout:     post
 title:      "【学习积累】git rebase"
 subtitle:   ""
 author:     "wml"
-header-img: "img/blog-build-1.png"
+header-img: "img/bg-1.png"
 header-mask:  0.5
 catalog: true
 tags:
