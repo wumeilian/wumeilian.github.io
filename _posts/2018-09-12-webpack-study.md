@@ -1,6 +1,6 @@
 ---
 layout:     post
-title:      "【学习笔记】 webpack学习"
+title:      "【学习笔记】 webpack"
 subtitle:   ""
 author:     "wml"
 header-img: "img/bg-1.png"
