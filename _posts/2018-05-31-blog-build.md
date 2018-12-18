@@ -1,6 +1,6 @@
 ---
 layout:     post
-title:      "【博客搭建】如何搭建jekyll主题的github.io博客"
+title:      "如何搭建jekyll主题的github.io博客"
 subtitle:   ""
 author:     "wml"
 header-img: "img/bg-1.png"

@@ -35,7 +35,7 @@ github_username:    wumeilian
 
 
 # Build settings
-paginate: 5
+paginate: 10
 plugins: [jekyll-paginate]
 # gems: [jekyll-paginate]
 
