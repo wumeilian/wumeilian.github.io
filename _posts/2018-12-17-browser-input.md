@@ -126,9 +126,23 @@ UI线程会判断用户输入的内容，是否是url或者搜索查询，解析
   * 在XMLHttpRequest在连接后新启动的一个线程；
   * 线程如检测到请求状态变更，设有回调函数会把该函数添加到事件队列等待js引擎执行
 
-> If the currently running task is a task that was created by the setTimeout() method, and timeout is less than 4, then increase timeout to 4.
+> * setTimeout--If the currently running task is a task that was created by the setTimeout() method, and timeout is less than 4, then increase timeout to 4. 值得注意的是根据w3c标准，setTimeout中的任务低于4ms会默认为4ms间隔。  
+> * setInterval(fn,ms)和setTimeout(fn,ms)不是每过ms秒会执行一次fn,而是每过ms秒会有fn进入事件队列中。
+
+> * 事件触发线程、定时触发器线程、异步HTTP请求线程三个线程有一个共同点，那就是使用回调函数的形式，即异步任务。异步又有宏任务和微任务之分，js事件循环机制为先执行宏任务再执行微任务，在微任务没有执行完前不会进入下一个宏任务。
 
 ![render](/img/browser/5.jpg)
+
+##### 浏览器渲染流程
+
+关于浏览器渲染的流程，在之前一篇博客[图片资源加载与渲染](http://127.0.0.1:4000/2018/10/26/img-load.html)中有粗略涉及，这里再赘述一些概念：
+
+* DOM Tree: 常说的DOM树，浏览器将HTML解析成树形的数据结构；
+* CSS Rule Tree: css规则树，浏览器将CSS解析成树形的数据结构；
+* Render Tree: 渲染树，DOM树和CSS规则树合并后产生的render树；
+* layout: 浏览器通过渲染树确定网页中的节点、各节点的CSS定义及从属关系，从而计算出每个节点在屏幕中的位置；
+* painting: 绘制，按照计算出来的规则，通过显卡把内容画在屏幕上；
+* reflow: 回流，当浏览器发现莫部分发生变化影响了布局就需要重新渲染。reflow从\<html>这个根元素开始递归往下计算所有节点的几何尺寸和位置。reflow几乎无法避免
 
 ### 总结
 
