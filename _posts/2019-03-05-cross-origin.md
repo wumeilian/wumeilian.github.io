@@ -35,5 +35,5 @@ document.domain = 'b.com'; // error
 
 `window.postMessage`是H5的API，通过它可以在不同域之间进行通信，不过要注意两点：
 
-* iframe
-* window.open()
+* window.postMessage()中的window始终是要通信的目标页面的window；
+* 只能在iframe、window.open()的方式下通信
