@@ -8,6 +8,7 @@ layout: default
     header.intro-header{
         position: relative;
         background: url('{{ site.baseurl }}/{% if page.header-img %}{{ page.header-img }}{% else %}{{ site.header-img }}{% endif %}') center center no-repeat;
+        background-size: 100%;
     }
 
     {% if page.header-mask %}
