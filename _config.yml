@@ -5,7 +5,7 @@ title: Wml Blog
 SEOTitle: 吴美莲的博客 | Wml Blog
 header-img: img/home-bg.png
 email: 1054527951@qq.com
-description: "前端开发 | 未知的世界才值得期待 | 吴美莲，Web & Front-end Engineer | wumeilian的个人博客呀"
+description: "前端开发 | 吴美莲，Web & Front-end Engineer | wumeilian的个人博客呀"
 keyword: "wumeilian, wml, wuml, 前端, Wml Blog, 博客，Web, Css, Javascript"
 url: "https://meilianwu.com/"              # your host, for absolute URL
 baseurl: ""                             # for example, '/blog' if your blog hosted on 'host/blog'
@@ -18,7 +18,7 @@ favicon: favicon.ico
 
 # Sidebar settings
 sidebar: true                           # whether or not using Sidebar.
-sidebar-about-description: "Web Developer <br/> 未知的我们向着未知的世界出发"
+sidebar-about-description: "Web Developer <br/> 学而时习之"
 sidebar-avatar: /img/avatar.png      # use absolute URL, seeing it's used in both `/` and `/about/`
 
 
@@ -52,7 +52,13 @@ gitalk:
 
 
 # Friends
-friends: [{
-  title: "wfm's github",
-  href: "https://github.com/wfm19970"
-}]
+friends: [
+  {
+    title: "wfm's github",
+    href: "https://github.com/wfm19970"
+  },
+  {
+    title: "chenshuyao's blog",
+    href: "https://chenshuyao.cn/"
+  }
+]
