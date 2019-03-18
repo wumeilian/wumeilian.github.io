@@ -99,4 +99,4 @@ window.onload = function() {
 
 ![cross](/img/cross/3.jpg)
 
-该方法的缺点也是适用场景不普遍，只是和window.open和iframe出来的页面。
+该方法的缺点也是适用场景不普遍，只适合window.open和iframe出来的页面。
