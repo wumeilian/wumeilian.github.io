@@ -65,6 +65,6 @@ var lengthOfLongestSubstring = function(s) {
 
 提交结果
 
-![1](/img/algorithm/1.jpg)
+![1](/img/algorithm/day2-1.jpg)
 
 #### 分析
