@@ -8,8 +8,7 @@ header-mask:  0.5
 catalog: true
 tags:
 
-    - css
-    - flex
+    - js
 ---
 ## 背景
 
