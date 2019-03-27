@@ -48,15 +48,15 @@ tags:
  * @return {number}
  */
 var lengthOfLongestSubstring = function(s) {
-    let arr = Array.from(s);
     let maxLen = 0;
     let str = ''
-    for(var i = 0; i< arr.length; i++) {
-        let idx = str.indexOf(arr[i]);
+    for(var i = 0; i< s.length; i++) {
+        let idx = str.indexOf(s[i]);
         if(idx != -1) {
             str = str.slice(idx+1)  
         }
-        str += arr[i];
+        str += s[i];
+
         maxLen = Math.max(str.length, maxLen);
     }
     return maxLen;
@@ -68,3 +68,27 @@ var lengthOfLongestSubstring = function(s) {
 ![1](/img/algorithm/day2-1.jpg)
 
 #### 分析
+
+解法一：
+
+依旧是暴力法，两层for循环嵌套，遍历所有的字符，给出所有可能的子字符串，并得出最大长度的子串；由于这种方法效率低，耗时长，时间复杂度O(n^3)所以不就不详述了。
+
+解法二：
+
+也是上面采用的解法，按解析这个解法称之为滑动窗口。给定一个
+
+```js
+function test(s) {
+debugger
+	var n = s.length,ans = 0; 
+	var map = new Map();
+	for(var j=0, i=0; j<n; j++) {
+		if(map.get(s.charAt(j))) {
+			i = Math.max(map.get(s.charAt(j)), i)
+		}
+		ans = Math.max(ans, j-i+1);
+		map.set(s.charAt(j), j+1);
+	}
+	return ans;
+}
+```
