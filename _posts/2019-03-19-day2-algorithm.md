@@ -78,17 +78,17 @@ var lengthOfLongestSubstring = function(s) {
 也是上面采用的解法，按解析这个解法称之为滑动窗口。给定一个
 
 ```js
-function test(s) {
+function lengthOfLongestSubstring(s) {
 debugger
-	var n = s.length,ans = 0; 
-	var map = new Map();
-	for(var j=0, i=0; j<n; j++) {
-		if(map.get(s.charAt(j))) {
-			i = Math.max(map.get(s.charAt(j)), i)
-		}
-		ans = Math.max(ans, j-i+1);
-		map.set(s.charAt(j), j+1);
-	}
-	return ans;
+    var n = s.length,ans = 0;
+    var map = new Map();
+    for(var j=0, i=0; j<n; j++) {
+        if(map.get(s.charAt(j))) {
+            i = Math.max(map.get(s.charAt(j)), i)
+        }
+        ans = Math.max(ans, j-i+1);
+        map.set(s.charAt(j), j+1);
+    }
+    return ans;
 }
 ```
