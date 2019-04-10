@@ -58,11 +58,12 @@ document.domain = 'b.com'; // error
 * 只能在iframe、window.open()的方式下通信
 
 ```html
-<!-- window.open -->
-
 <!-- pageA -->
 <h1>Page A</h1>
+<p id="txt"></p>
 <button id="newWin">open new window</button>
+<button id="postMsg">post msg to iframe</button>
+<iframe id="receiverIframe" src="http://127.0.0.1:3000/pageB" frameborder="1" width="800" height="500"></iframe>
 
 <script>
 var test = {
@@ -70,33 +71,80 @@ var test = {
     "name": "wml",
     "des": 'this page from pageA'
 }
+
+var openBtn = document.getElementById('newWin');
+var postMsg = document.getElementById('postMsg');
+var recIframe = document.getElementById('receiverIframe').contentWindow;
+var text = document.getElementById('txt');
+
 window.onload = function() {
-    var openBtn = document.getElementById('newWin');
     openBtn.addEventListener('click', openwindow);
+    postMsg.addEventListener('click', sentMsg)
+    window.addEventListener('message', reveiveMsg);
 }
 
+// window.open
 function openwindow() {
-    var pageB = window.open('http://192.168.152.69:3000/pageB');
-
+    var target = 'http://127.0.0.1:3000/pageB'
+    var pageB = window.open(target);
     //这里加setTImeout是因为需要等到PageB页面加载完成才能进行postMessage通信，但是在PageA内是无法对PageB进行onload事件监听，所以做延迟处理。
     setTimeout(function() {
-        pageB.postMessage(test, 'http://192.168.152.69:3000/pageB');
-    }, 500);
+        pageB.postMessage(test, target);
+    }, 500)
 }
-</script>
 
-<!-- page B -->
-<h1>Page B</h1>
+function sentMsg() {
+    recIframe.postMessage('This msg from PageA~', 'http://127.0.0.1:3000/pageB');
+}
 
-<script>
-window.onload = function() {
-    window.addEventListener("message", function(e) {
-        console.log(e, 999);
-    }, false)
+function reveiveMsg(event) {
+    console.log(event, 'A: from B')
+    text.innerHTML = event.data;
 }
 </script>
 ```
 
+```html
+<!-- page B -->
+<h1 id="revMsg">Page B</h1>
+<button id="postMsg">Post Message</button>
+
+<script>
+var revMsg = document.getElementById('revMsg');
+
+window.onload = function() {  // 监听message，获取来自A页面的数据
+    window.addEventListener("message", function(e) {
+        console.log(e, 'B: from A');
+        receiveMsg(e);
+    }, false);
+
+    postMsg.addEventListener('click', sendMsg)
+    // window.addEventListener('message', receiveMessage, false);
+}
+
+function receiveMsg(event) {
+    if(event.origin !== 'http://127.0.0.1:8083') return;
+
+    revMsg.innerText = event.data.des ? `Messge from: ${event.data.des}, the name is ${event.data.name}` : `Messge from: ${event.data}`;
+}
+
+// 直接在 PageB (当前页面) 无法向 PageA 发送跨域信息
+//  只有当 PageB (当前页面) 处于 PageA 页面内的 iframe 中的时候才能发送跨域信息
+// otherWindow需要指向发送的窗口，即父级iframe，所以用top
+function sendMsg() {
+    top.postMessage('Hi, pageA, a message from pageB', 'http://127.0.0.1:8083')
+}
+</script>
+```
+
+pageB页面控制台输出：
+
 ![cross](/img/cross/3.jpg)
 
+从pageB页面回传给pageA的数据
+
+![cross](/img/cross/4.png)
+
 该方法的缺点也是适用场景不普遍，只适合window.open和iframe出来的页面。
+
+### jonp
