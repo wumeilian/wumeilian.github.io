@@ -57,6 +57,8 @@ document.domain = 'b.com'; // error
 * window.postMessage()中的window始终是要通信的目标页面的window；
 * 只能在iframe、window.open()的方式下通信
 
+可进入[github](https://github.com/wumeilian/crossDomain/tree/master/postMessage)参看源码
+
 ```html
 <!-- pageA -->
 <h1>Page A</h1>
@@ -147,4 +149,4 @@ pageB页面控制台输出：
 
 该方法的缺点也是适用场景不普遍，只适合window.open和iframe出来的页面。
 
-### jonp
+### jsonp
