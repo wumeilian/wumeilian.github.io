@@ -30,10 +30,11 @@ tags:
     }
 
     function debounce(fn, time) {
+        let timeout = null;
         return args => {
-            clearTimeout(fn.timer);  //先清除上一次的计时
+            clearTimeout(timeout);  //先清除上一次的计时
 
-            fn.timer = setTimeout(() => {
+            timeout = setTimeout(() => {
                 fn.call(this, args)
             }, time)
         }
@@ -60,12 +61,13 @@ tags:
     }
 
     function throttle(fn, time) {
+        let timeout = null;  // 这里可以指定为一个定时器，或者直接加一个变量标识也行，原理都是一样
         return args => {
-            if(fn.timer) return;  //如果存在计时则等待计时结束
-            fn.timer = setTimeout(() => {
+            if(timeout) return;  //如果存在计时则等待计时结束
+            timeout = setTimeout(() => {
                   fn.call(this, args)
-                  clearTimeout(fn.timer);  // 回收定时器
-                  fn.timer = null;
+                  clearTimeout(timeout);  // 回收定时器
+                  timeout = null;
             }, time)
         }
     }
