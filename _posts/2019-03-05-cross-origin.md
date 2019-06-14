@@ -8,7 +8,7 @@ header-mask:  0.5
 catalog: true
 tags:
 
-    - 跨域
+    - web
 ---
 
 ## 前言

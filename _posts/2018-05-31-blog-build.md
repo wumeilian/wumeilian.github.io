@@ -7,7 +7,7 @@ header-img: "img/bg-1.png"
 header-mask:  0.5
 catalog: true
 tags:
-    - blog
+    - 笔记
 ---
 
 ## 前言

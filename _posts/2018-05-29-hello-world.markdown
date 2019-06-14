@@ -7,7 +7,7 @@ header-img: "img/hello-world.jpg"
 header-mask:  0.5
 catalog: true
 tags:
-    - 生活
+    - 笔记
 ---
 
 ## 写在前面

@@ -1,6 +1,6 @@
 ---
 layout:     post
-title:      "今日份小记"
+title:      "日常踩坑填坑"
 subtitle:   ""
 author:     "wml"
 header-img: "img/present/1.jpg"
@@ -8,10 +8,16 @@ header-mask:  0.5
 catalog: true
 tags:
 
-    - 小记
-    - js
     - web
 ---
+
+### 获取url查询参数方法(超简)
+
+```js
+let q={};
+location.search.replace(/([^?&=]+)=([^&]+)/g,(_,k,v)=>q[k]=v);
+console.log(q);
+```
 
 #### 网络分层模型（OSI）(3/4)
 

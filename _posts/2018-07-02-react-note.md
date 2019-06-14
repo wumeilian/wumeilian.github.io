@@ -8,8 +8,7 @@ header-mask:  0.5
 catalog: true
 tags:
 
-    - 前端
-    - react
+    - 笔记
 ---
 
 ## 前言

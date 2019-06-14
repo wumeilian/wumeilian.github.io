@@ -9,7 +9,6 @@ catalog: true
 tags:
 
     - css
-    - flex
 ---
 
 #### flex布局

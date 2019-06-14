@@ -1,6 +1,6 @@
 ---
 layout:     post
-title:      "[每日算法] 两数之和"
+title:      "[今日算法] 两数之和"
 subtitle:   ""
 author:     "wml"
 header-img: "img/algorithm/bg.png"
@@ -8,7 +8,7 @@ header-mask:  0.5
 catalog: true
 tags:
 
-    - js
+    - 算法
 ---
 ## 背景
 
