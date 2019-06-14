@@ -1,6 +1,6 @@
 ---
 layout:     post
-title:      "[每日算法] 无重复字符的最长子串"
+title:      "[今日算法] 无重复字符的最长子串"
 subtitle:   ""
 author:     "wml"
 header-img: "img/algorithm/bg.png"
@@ -8,7 +8,7 @@ header-mask:  0.5
 catalog: true
 tags:
 
-    - js
+    - 算法
 ---
 
 #### 题目描述
