@@ -3,7 +3,7 @@ layout:     post
 title:      "[今日算法] 无重复字符的最长子串"
 subtitle:   ""
 author:     "wml"
-header-img: "img/algorithm/bg.png"
+header-img: "img/algorithm/bg.jpg"
 header-mask:  0.5
 catalog: true
 tags:
