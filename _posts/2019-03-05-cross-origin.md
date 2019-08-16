@@ -57,8 +57,6 @@ document.domain = 'b.com'; // error
 * window.postMessage()中的window始终是要通信的目标页面的window；
 * 只能在iframe、window.open()的方式下通信
 
-可进入[github](https://github.com/wumeilian/crossDomain/tree/master/postMessage)参看源码
-
 ```html
 <!-- pageA -->
 <h1>Page A</h1>
@@ -150,3 +148,42 @@ pageB页面控制台输出：
 该方法的缺点也是适用场景不普遍，只适合window.open和iframe出来的页面。
 
 ### jsonp
+
+原理是因为`script`标签内的src属性能支持跨域请求，所以jsonp利用这点构建`script`标签，src属性为接口地址，通过这种做法向服务端请求json数据；
+
+通过在服务端用一个回调函数把数据一起包裹起来并返回给客户端，然后客户端写好回调（处理数据），并动态创建一个script节点，通过src属性来调用服务端返回的回调函数。
+
+```js
+/*client*/
+ function jsonpFetch(src) {
+    var script = document.createElement('script');
+    script.setAttribute('type', 'text/javascript');
+    script.src = src;
+    document.body.appendChild(script);
+}
+
+window.onload = function() {
+    jsonpFetch('http://127.0.0.1:8080?callback=foo');
+}
+
+function foo(data) {
+    console.log(data)
+}
+
+/*service*/
+foo({
+    "code": 0,
+    "name": "wml",
+    "age": 26
+})
+```
+
+![cross](/img/cross/5.png)
+
+由于`<script>`元素请求的脚本直接作为代码运行，所以浏览器只要定义了foo函数就会立即调用，作为参数的json数据被视为js对象，因此不必使用JSON.parse转换数据。
+
+jsonp接口与普通接口返回数据有区别，所以需要做jsonp数据兼容，可以通过对应的callback关键字判断，有则是jsonp请求，返回jsonp数据，否则返回普通接口数据。
+
+缺陷：基于jsonp的原理，所以jsonp只能是`GET`请求。
+
+### 相关源码：[github](https://github.com/wumeilian/crossDomain/tree/master/postMessage)
