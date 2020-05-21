@@ -1,6 +1,6 @@
 ---
 layout:     post
-title:      "记录一次线上问题排查的心酸历程"
+title:      "记录一次线上问题排查"
 subtitle:   ""
 author:     "wml"
 header-img: "img/bg-1.png"
