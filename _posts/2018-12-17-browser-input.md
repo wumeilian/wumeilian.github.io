@@ -99,7 +99,7 @@ UI线程会判断用户输入的内容，是否是url或者搜索查询，解析
 
 5、提交导航
 
-渲染经常准备就绪后，IPC将数据从browser process发送到render process。一旦browser process听到确认提交已在render process中发生，导航就完成了，文档加载阶段就开始了。
+渲染进程准备就绪后，IPC将数据从browser process发送到render process。一旦browser process听到确认提交已在render process中发生，导航就完成了，文档加载阶段就开始了。
 
 ![render](/img/browser/4.png)
 
@@ -135,14 +135,14 @@ UI线程会判断用户输入的内容，是否是url或者搜索查询，解析
 
 ##### 浏览器渲染流程
 
-关于浏览器渲染的流程，在之前一篇博客[图片资源加载与渲染](http://127.0.0.1:4000/2018/10/26/img-load.html)中有粗略涉及，这里再赘述一些概念：
+关于浏览器渲染的流程，在之前一篇博客[图片资源加载与渲染](http://meilianwu.com/2018/10/26/img-load.html)中有粗略涉及，这里再赘述一些概念：
 
 * DOM Tree: 常说的DOM树，浏览器将HTML解析成树形的数据结构；
 * CSS Rule Tree: css规则树，浏览器将CSS解析成树形的数据结构；
 * Render Tree: 渲染树，DOM树和CSS规则树合并后产生的render树；
 * layout: 浏览器通过渲染树确定网页中的节点、各节点的CSS定义及从属关系，从而计算出每个节点在屏幕中的位置；
 * painting: 绘制，按照计算出来的规则，通过显卡把内容画在屏幕上；
-* reflow: 回流，当浏览器发现莫部分发生变化影响了布局就需要重新渲染。reflow从\<html>这个根元素开始递归往下计算所有节点的几何尺寸和位置。reflow几乎无法避免，如元素的隐藏和显示，甚至鼠标滑过，点击，只要引起 页面的元素展位面积、定位方式、边距等变化，都会引起内部、周围甚至整体reflow；
+* reflow: 回流，当浏览器发现某部分发生变化影响了布局就需要重新渲染。reflow从\<html>这个根元素开始递归往下计算所有节点的几何尺寸和位置。reflow几乎无法避免，如元素的隐藏和显示，甚至鼠标滑过，点击，只要引起 页面的元素展位面积、定位方式、边距等变化，都会引起内部、周围甚至整体reflow；
 * repaint(重绘): 改变元素的背景色，文字、边框颜色等不影响它周围或者内部布局的属性时，屏幕的一部分需要重画，但是几何尺寸没有变化。
 
 > dsplay:none的节点不会被加入Render树中，而visibility:hidden会；所以display:none会触发reflow，visibility:hidden会触发repaint。
@@ -158,7 +158,7 @@ UI线程会判断用户输入的内容，是否是url或者搜索查询，解析
 
 ![render](/img/browser/6.jpg)
 
-上图可以看出，css在加载中不会影响到DOM树的生成，但是会影响render树的身材，从而影响到layout，所以style的link标签尽量放在header里。因为DOM的解析是自上而下的，css样式是通过一部加载的，这样解析DOM树下的节点和加载css样式尽可能并行，加快render树的生成速度。如果css是通过js动态添加的，会引起页面的重绘或者重新布局。
+上图可以看出，css在加载中不会影响到DOM树的生成，但是会影响render树的身材，从而影响到layout，所以style的link标签尽量放在header里。因为DOM的解析是自上而下的，css样式是通过异步加载的，这样解析DOM树下的节点和加载css样式尽可能并行，加快render树的生成速度。如果css是通过js动态添加的，会引起页面的重绘或者重新布局。
 
 > DOMContentLoaded是仅当DOM加载完成后，不包括样式和图片。eg,异步加载的脚本不一定完成；  
 > onLoad事件触发是指页面所有的DOM，样式表，脚本、图片都已经加载完成，渲染完毕后。
