@@ -1,6 +1,6 @@
 ---
 layout:     post
-title:      "【读书笔记】设计模式"
+title:      "【读书笔记】设计模式与继承"
 subtitle:   ""
 author:     "wml"
 header-img: "img/bg-1.png"
@@ -196,3 +196,203 @@ o instanceof Person; //false
 ```
 
 #### 原型模式
+
+##### 原型
+1、function才有prototype属性，指向一个对象，这个对象包含特定类型实例的方法和属性，即实例的原型对象，可以让实例共享原型的方法和属性。prototype指向原型对象，默认情况下都会有一个constructor（构造函数）属性，这个属性包含一个指向
+prototype所在函数的指针，即`func.prototype.constructor === func`;  
+
+2、调用构造函数创建实例后，会有一个指针指向构造函数的原型对象，各大浏览器实现为__proto__;
+
+3、只在原型上添加属性和方法，构造函数成了一个空函数，实例的属性和方法都是共享的。
+
+4、读取对象的某个属性，先从对象实例开始搜索，有则返回，无则向对象的原型上搜索，直到找到该对象返回，无则返回undefined。可以用hasOwnProperty方法判断属性是来自原型还是实例（该方法只能获取到实例属性）；`!obj.hasOwnProperty('属性') && "属性" in obj `可以判断属性来源于原型。
+
+5、所有函数的原型默认都是Object的实例
+
+```js
+// 原型
+function A() {}
+let a = new A();
+A.prototype.constructor === A //true
+a.__proto__ === A.prototype //true
+a.__proto__.__proto__ === A.prototype.__proto__ //true(都是指向原始对象Object)
+```
+
+```js
+// 原型模式
+function Person() {}
+Person.prototype.name = 'wml';
+Person.prototype.age = 18;
+Person.prototype.sayName = function() {
+  console.log(this.name);
+};
+
+let person1 = new Person();
+let person2 = new Person();
+person1.name // wml
+person2.name // wml
+```
+
+弊端： 不能用构造函数初始化传参，所有实例的属性和方法都是共享的。
+
+#### 组合构造函数模式和原型模式
+
+组合模式就是使用构造函数模式定义实例的属性，通过原型模式定义共享的属性和方法
+
+```js
+function Person(name, age) {
+  this.name = name;
+  this.age = age;
+}
+Person.prototype = {
+  constructor: Person,
+  sayName: function() {
+    console.log(this.name);
+  }
+}
+let person1 = new Person('wml', 18);
+let person2 = new Person('wml2', 16);
+person1.name === person2.age // false
+person1.sayName === person1.sayName //true
+```
+
+### 继承
+
+#### 原型链
+
+所谓原型链就是原型对象指向另一个原型的实例，另一个原型又指向另一个原型对象的实例，层层递进，这就是原型链的概念。
+
+#### 原型继承
+
+```js
+function A() {
+    this.namess = 'wml';
+}
+A.prototype.getName = function() {
+    return this.namess;
+}
+function SubA() {
+    this.subName = 'wml2';
+}
+SubA.prototype = new A();
+
+SubA.prototype.getSubName = function() {
+    return this.subName;
+}
+
+let ins = new SubA();
+SubA.prototype.__proto__ === A.prototype // true
+ins.__proto__ === SubA.prototype // true
+ins.constructor === A // true（ins的构造函数原本指向SubA,但SubA的prototype指向了A的原型，A的原型的constructor指向A）
+ins.namess // wml
+ins.getName(); //wml
+ins.subName // wml2
+ins.getSubName(); // wml2
+
+// 重写超类型中的方法
+SubA.prototype.getName = function() {return 're_wml'} 
+ins.getName(); //re_wml
+```
+
+原型继承的缺点：超类型的原型属性会被所有实例共享(SubA的prototype指向了A的实例，A的原型属性变成了SubA的原型属性)；不能向超类型传参；
+
+```js
+ins.namess = 'wml3';
+let ins2 = new SubA();
+ins2.namess // wml3
+```
+
+#### 构造函数继承
+
+本质是子类型的构造函数内部调用超类型的构造函数；
+
+优点：可以每个实例有自己独立的属性；可传参；
+
+缺点：和构造函数一样，方法在构造函数中定义，函数无法复用
+
+```js
+function A(name) {
+  this.namess = name;
+}
+function SubA() {
+  A.call(this, 'wml');
+  this.subName = 'wml2';
+}
+let ins = new SubA();
+ins.namess // wml
+ins.namess = 'wml3' // wml3
+let ins2 = new SubA()
+ins2.namess // wml
+```
+
+#### 组合继承
+
+结合原型继承和构造函数继承，使用原型链对原型属性和方法进行继承，使用构造函数对实例属性继承，使之拥有各自的属性。
+
+缺点：会调用两次超类型的构造函数，一次是创建子类原型，一次是在子类构造函数内部调用
+
+```js
+function A(name) {
+    this.namess = name;
+    this.color = [1,2];
+}
+A.prototype.getName = function() {
+    return this.namess;
+}
+function SubA(name) {
+    A.call(this, name); //第二次调用A()
+    this.subName = 'wml2';
+}
+SubA.prototype = new A(); // 第一次调用A()
+SubA.prototype.constructor = SubA;
+
+SubA.prototype.getSubName = function() {
+    return this.subName;
+}
+
+let ins = new SubA('wml');
+ins.__proto__ === SubA.prototype // true
+ins.__proto__ === SubA.prototype // false
+ins.namess // wml
+ins.color.push(3) // [1,2,3]
+let ins2 = new SubA('wml3')
+ins2.namess // wml3
+ins2.color //[1,2]
+```
+
+#### 寄生组合式继承
+
+通过构造函数继承属性，通过原型链的混成式继承方法
+
+```js
+// 原型式继承
+function object(o) {
+  function F() {}
+  F.prototype = o;
+  return new F();
+}
+// 寄生组合基本模式
+// 本质： 拷贝了一个超类型原型的副本
+function inheritPrototype(sub, sup) {
+  let pro = object(sup.prototype); //创建对象
+  pro.constructor = sub; //增强对象 
+  sub.protototype = pro; //指定对象 
+}
+
+function A(name) {
+  this.namess = name;
+  this.color = [1,2];
+}
+A.prototype.getName = function() {
+  return this.namess;
+}
+function SubA(name, subName) {
+  A.call(this, name)
+  this.subName = subName;
+}
+inheritPrototype(SubA, A);
+SubA.prototype.getSubName = function() {
+  return this.subName;
+}
+let ins = new SubA('wml', 'wml2')
+```
