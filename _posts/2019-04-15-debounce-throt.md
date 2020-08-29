@@ -25,26 +25,36 @@ tags:
 <input type="text" id="debounce"/>
 
 <script>
-    function ajaxApi(data) { // 模拟数据请求
-        console.log(new Date + ' - ' + data);
-    }
+  function ajaxApi(data) { // 模拟数据请求
+    console.log(new Date + ' - ' + data);
+  }
 
-    function debounce(fn, time) {
-        let timeout = null;
-        return args => {
-            clearTimeout(timeout);  //先清除上一次的计时
+  function debounce(fn, wait, immediate) {
+    let timeout;
+    return function() {
+      let contxt = this;
+      if(timeout) clearTimeout(timeout);
 
-            timeout = setTimeout(() => {
-                fn.call(this, args)
-            }, time)
-        }
-    }
-
-    var debouceAjax = debounce(ajaxApi, 1000); //高阶函数
-
-    document.getElementById('debounce').addEventListener('keyup', e => {
-        debouceAjax(e.target.value)
-    })
+      if(immediate) {
+          let callNow = !timeout;
+          timeout = setTimeout(() => {
+              timeout = null;
+          }, wait);
+          callNow && fn.call(contxt, ...arguments);
+      }
+      else {
+          timeout = setTimeout(() => {
+              fn.call(contxt, ...arguments);
+          }, wait);
+      }
+    } 
+}
+  // var debouceAjax = debounce(ajaxApi, 1000); //高阶函数
+  // document.getElementById('debounce').addEventListener('keyup', e => {
+  //   debouceAjax(e.target.value)
+  // })
+  var debouceAjax = debounce(e => ajaxApi(e), 1000); 
+  document.getElementById('debounce').addEventListener('keyup', debouceAjax);
 </script>
 ```
 
@@ -62,17 +72,17 @@ tags:
 
     function throttle(fn, time) {
         let timeout = null;  // 这里可以指定为一个定时器，或者直接加一个变量标识也行，原理都是一样
-        return args => {
+        return () => {
             if(timeout) return;  //如果存在计时则等待计时结束
             timeout = setTimeout(() => {
-                  fn.call(this, args)
+                  fn.call(this, ...arguments);
                   clearTimeout(timeout);  // 回收定时器
                   timeout = null;
             }, time)
         }
     }
 
-    var throttleAjax = throttle(ajaxApi, 1000); //高阶函数
+    var throttleAjax = throttle(ajaxApi, 1000);
 
     document.getElementById('debounce').addEventListener('keyup', e => {
         throttleAjax(e.target.value)
