@@ -197,7 +197,7 @@ o instanceof Person; //false
 
 #### 原型模式
 
-##### 原型
+##### --原型
 1、function才有prototype属性，指向一个对象，这个对象包含特定类型实例的方法和属性，即实例的原型对象，可以让实例共享原型的方法和属性。prototype指向原型对象，默认情况下都会有一个constructor（构造函数）属性，这个属性包含一个指向
 prototype所在函数的指针，即`func.prototype.constructor === func`;  
 
